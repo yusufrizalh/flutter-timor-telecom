@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, sort_child_properties_last, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:myflutterapp/menu/reports/report_page.dart';
 
 import 'menu/contact_page.dart';
 import 'menu/home_page.dart';
 import 'menu/products_page.dart';
+import 'menu/register_page.dart';
 
 /*
   # Widget berdasarkan isi didalamnya dibagi menjadi 2 kategori:
@@ -17,6 +19,7 @@ class MySliverAppBar extends StatefulWidget {
     DrawerItem("Home Page", Icons.home),
     DrawerItem("Products Page", Icons.shopping_cart),
     DrawerItem("Contact Page", Icons.mail),
+    DrawerItem("Report Page", Icons.book),
   ];
 
   @override
@@ -33,6 +36,8 @@ class DrawerItem {
 class _MySliverAppBarState extends State<MySliverAppBar> {
   int selectedItem = 0;
   String profilePicture = "https://i.ibb.co/PxkfQPX/github-avatar.png";
+  String drawerBackground =
+      "https://babich.biz/content/images/2016/03/user-profile-bg.jpg";
 
   getDrawerItem(int position) {
     switch (position) {
@@ -42,6 +47,8 @@ class _MySliverAppBarState extends State<MySliverAppBar> {
         return ProductsPage();
       case 2:
         return ContactPage();
+      case 3:
+        return ReportPage();
       default:
         return Text('Page is not found!');
     }
@@ -72,6 +79,11 @@ class _MySliverAppBarState extends State<MySliverAppBar> {
         child: Column(
           children: <Widget>[
             UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(70, 132, 153, 1),
+                image: DecorationImage(
+                    image: NetworkImage(drawerBackground), fit: BoxFit.cover),
+              ),
               accountName: Text('Yusuf Rizal'),
               accountEmail: Text('rizal@inixindo.co.id'),
               currentAccountPicture: CircleAvatar(
@@ -101,8 +113,15 @@ class _MySliverAppBarState extends State<MySliverAppBar> {
                     onPressed: () => print('search is pressed'),
                     icon: Icon(Icons.search)),
                 IconButton(
-                    onPressed: () => print('settings is pressed'),
-                    icon: Icon(Icons.settings)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterPage(),
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.person_add)),
               ],
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
